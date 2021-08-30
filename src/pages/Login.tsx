@@ -1,6 +1,9 @@
 import React from 'react';
 import { Route, BrowserRouter as Router } from 'react-router-dom';
 import { MyPage2, MyPage3 } from './index'
+import { useRecoilState } from 'recoil';
+import { userState } from '../recoil/user'
+import { UserType } from '../recoil/user'
 
 type LoginProps = {
     match: { path: string };
@@ -9,9 +12,9 @@ type LoginProps = {
 }
 
 function Login({ match, location, history }: LoginProps){
-    console.log('match', match);
-    console.log('location', location);
-    console.log('history', history);
+    
+    const [user2, setUser2] = useRecoilState<UserType>(userState)
+    console.log('user_login', user2);
     return (
         <Router>
             <div>Login</div>
