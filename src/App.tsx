@@ -6,16 +6,18 @@ import Header from './components/header'
 
 const App: React.FC = () => {
   return (
-    <RecoilRoot>
-      <Router>
-        <Header MEMBER_SEQ={1} />
-        <Switch>
-          <Route exact path="/" component={Main} />
-          <Route path="/login" component={Login} />
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
-    </RecoilRoot>
+    <React.Fragment>
+      <RecoilRoot>
+        <Router>
+          <Header MEMBER_SEQ={1} />
+          <Switch>
+            <Route exact path="/" component={Main} />
+            <Route path="/login" component={Login} />
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
+      </RecoilRoot>
+    </React.Fragment>
   );
 }
 

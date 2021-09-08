@@ -1,0 +1,51 @@
+$blue: blue;
+
+.Background {
+    display: flex;
+    padding: 0 20px;
+    min-height: 60px;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #ddd;
+}
+.LogoArea {
+    display: flex;
+    padding-right: 20px;
+}
+.HeaderLogo {
+    width: 140px;
+    height: 30px;
+}
+.CtrlArea {
+    flex: 1;
+    display: flex;
+    max-width: 1100px;
+}
+    .CtrlBox {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .CtrlBox.CtrlBar {
+        flex: 1;
+    }
+    .CtrlBox .CtrlIcon {
+        
+    }
+    .HeaerIcon {
+        display: flex;
+        padding: 0 5px;
+        align-items: center;
+        justify-content: center;
+        transition: 0.4s;
+    }
+    .HeaerIcon:hover {
+        transform: scale(1.1);
+    }
+.MenuArea {
+    display: flex;
+    padding-left: 20px;
+}
+.MenuArea .MenuIcon {
+    
+}

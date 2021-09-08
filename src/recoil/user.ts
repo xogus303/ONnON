@@ -1,4 +1,10 @@
 import { atom, selector } from 'recoil';
+import { recoilPersist } from 'recoil-persist';
+
+const { persistAtom } = recoilPersist({
+    key: 'recoil-persist',
+    storage: localStorage,
+})
 
 export interface UserType {
     id: string;
@@ -12,6 +18,7 @@ export const userState = atom<UserType>({
         id: 'xogus303',
         pwd: '12345a',
     },
+    effects_UNSTABLE: [persistAtom]
 });
 
 // Selector
