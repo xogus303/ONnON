@@ -1,0 +1,209 @@
+
+.Login {
+    flex: 1;
+    z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.loginInner {
+    z-index: 1001;
+    display: flex;
+    padding: 40px 20px 20px;
+    flex-direction: column;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fff;
+}
+.loginBg {
+    display: flex;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(255,255,255,0.8);
+    cursor: pointer;
+}
+
+// LoginBox
+.LoginBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.LogoArea {
+    padding: 0;
+}
+.LoginLogo {
+    width: 200px;
+}
+.LoginInputArea {
+    position: relative;
+    display: flex;
+    margin-top: 40%;
+    flex-direction: column;
+    min-width: 350px;
+}
+.LoginInputArea input::placeholder {
+    color: #aaa;
+}
+.LoginInput {
+    padding: 0 15px;
+    line-height: 42px;
+    font-size: 1rem;;
+    border: 1px solid #d6d6d6;
+}
+.LoginId {
+    border-bottom-width: 0;
+    border-radius: 6px 6px 0 0;
+}
+.LoginPwd {
+    border-radius: 0 0 6px 6px;
+}
+.LoginSubmit {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    right: 15px;
+    bottom: 10px;
+    transition: .2s;
+}
+.LoginSubmit:hover {
+    transform: scale(1.1)
+}
+
+// LoginMenu
+.LoginMenu {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+.saveId {
+    display: flex;
+    margin-bottom: 80px;
+    font-size: 0.9rem;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+.saveId input {
+    margin-right: 10px;
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+}
+.saveId label {
+    cursor: pointer;
+}
+.sectionLine {
+    display: flex;
+    margin: 20px 0;
+    min-width: 200px;
+    width: 100%;
+    height: 1px;
+    background-color: #ddd;
+}
+.findPwd {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: #777;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.findPwd:hover {
+    color: blue;
+    text-decoration: underline;
+}
+.findPwd span {
+    margin-right: 5px;
+}
+.moveRegist {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 10px;
+    color: #777;
+    font-size: 0.9rem;
+    cursor: pointer;
+}
+.moveRegist:hover {
+    color: blue;
+    text-decoration: underline;
+}
+.moveRegist span {
+    margin-right: 5px;
+}
+
+// RegistMember
+.RegistMember {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+// RegistForm
+.RegistForm {
+    display: flex;
+    flex-direction: column;
+}
+.RegistInputArea {
+    display: flex;
+    padding: 50px 0 30px 0;
+    min-width: 350px;
+    flex-direction: column;
+}
+.RegistInputArea input {
+    
+}
+.RegistInput {
+    margin: 10px 0;
+}
+.RgistBottom {
+    display: flex;
+    justify-content: space-between;
+}
+.RgistBottomSection {
+    display: flex;
+}
+.RgistBottomSection button {
+    display: flex;
+    align-items: center;
+    font-size: 0.9rem;
+    color: #777;
+}
+.RgistBottomSection button svg {
+    transition: .2s;
+}
+.RgistBottomSection button:hover svg {
+    transform: scale(1.1);
+}
+.RgistBottomSection.RBL button svg {
+    margin-right: 5px;
+}
+.RgistBottomSection.RBR button svg {
+    margin-left: 5px;
+}
+.captchaArea {
+    display: flex;
+    margin-top: 10px;
+    justify-content: space-evenly;
+}
+.captchaArea input {
+    display: flex;
+    width: 100px;
+    height: 30px;
+    text-align: center;
+}

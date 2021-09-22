@@ -1,18 +1,30 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link, Route, Switch, BrowserRouter as Router } from 'react-router-dom';
 import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'recoil';
-import { Main, Login, NotFound } from './pages'
+import { Main, NotFound } from './pages'
+import history from 'history/browser';
+// component
 import Header from './components/header'
+import Modal from './components/Modal'
+import 'bootstrap/dist/css/bootstrap.min.css';
+import LoginModal from './components/login'
 
-const App: React.FC = () => {
+// recoil
+import { loginState, LoginType } from './recoil/login'
+
+const App: React.FC = (props) => {
+
+  console.log('app history', history);
+
   return (
     <React.Fragment>
       <RecoilRoot>
         <Router>
           <Header MEMBER_SEQ={1} />
+          <LoginModal />
+          <Modal />
           <Switch>
             <Route exact path="/" component={Main} />
-            <Route path="/login" component={Login} />
             <Route component={NotFound} />
           </Switch>
         </Router>

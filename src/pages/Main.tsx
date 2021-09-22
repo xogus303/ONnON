@@ -30,7 +30,7 @@ function Main ({ match, location, history }: MainProps) {
 
 
     return (
-        <div className='Wrap'>
+        <div className='Main'>
             <TypeRoulette />
             <MusicList />
         </div>

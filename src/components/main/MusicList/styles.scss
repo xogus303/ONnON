@@ -15,3 +15,77 @@
   display: block;
   width: 100%;
 }
+.musicItem {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+}
+.musicItemActive {
+  border: 2px solid skyblue;
+}
+.MusicItemImg {
+  border-radius: 12px;
+}
+.musicIteminfo {
+  display: flex;
+  position: absolute;
+  top: 70%;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 5%;
+  flex-direction: column;
+  // background-color: white;
+  background-color: rgba(0,0,0,0.8);
+} 
+.TextArea {
+  display: flex;
+  flex: 1;
+  align-items: center;
+}
+.TextArea span {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: bold;
+  color: #fff;
+  font-size: 1rem;
+}
+.TitleText {}
+.BtnArea {
+  display: flex;
+  margin-top: 10px;
+}
+.Textline2 {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.SingerText {
+  font-weight: bold;
+  color: #fff;
+  font-size: 1rem;
+}
+.UploadText {
+  font-weight: bold;
+  color: #aaa;
+  font-size: 0.8rem;
+}
+.BtnZone {
+  display: flex;
+}
+.BtnZone button {
+  display: flex;
+  width: 36px;
+  height: 36px;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+}
+.BtnZone button+button {
+  margin-left: 10px;
+}
+.BtnZone button:hover {
+  background-color: #fff;
+}

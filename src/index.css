@@ -80,9 +80,9 @@ button {
 	flex-direction: column;
 	flex: 1;
 }
-.Wrap {
+.Main {
 	height: 100%;
-	background-color: #cef1ff;
+	background-color: #0093a2;
 }
 
 /* scroll-picker */
@@ -91,23 +91,29 @@ button {
 	width: 300px;
 }
 .selected-time {
+	color: white !important;
 	font-size: 30px !important;	
 }
 
 /* swiper */
+.swiper-container-3d {
+	height: 400px;
+}
 .swiper-container {
-	overflow: visible !important;
+	/* overflow: visible !important; */
 }
 .swiper-button-prev {
 	color: #333 !important;
 	left: 50% !important;
 	right: 100px !important;
-	top: 120% !important;
+	top: auto !important;
+	bottom: 0;
 	transform: translateX(-70px);
 }
 .swiper-button-next {
 	color: #333 !important;
 	right: 50% !important;
-	top: 120% !important;
+	top: auto !important;
+	bottom: 0;
 	transform: translateX(70px);
 }
