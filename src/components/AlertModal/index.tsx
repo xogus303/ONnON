@@ -2,6 +2,7 @@ import { RecoilRoot, atom, selector, useRecoilState, useRecoilValue } from 'reco
 import { Modal, Button } from 'react-bootstrap';
 // recoil
 import { ModalType, modalState } from '../../recoil/modal'
+import { useEffect } from 'react';
 
 export default ({
     
@@ -14,18 +15,23 @@ export default ({
   }
 
     return (
-        <Modal show={ModalState.show} onHide={handleClose}>
+        <Modal
+            show={ModalState.show}
+            onHide={handleClose}
+        >
             <Modal.Header closeButton>
-                <Modal.Title>Modal heading</Modal.Title>
+                <Modal.Title>{ModalState.title}</Modal.Title>
             </Modal.Header>
-            <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+            <Modal.Body>{ModalState.text}</Modal.Body>
             <Modal.Footer>
                 <Button variant="secondary" onClick={handleClose}>
-                    Close
+                    {ModalState.cancelBtn ?? ModalState.type == 'confirm' ? '취소' : '닫기'}
                 </Button>
+                {ModalState.type == 'confirm' && (
                 <Button variant="primary" onClick={handleClose}>
-                    Save Changes
+                    {ModalState.okBtn ?? '확인'}
                 </Button>
+                )}
             </Modal.Footer>
         </Modal>
     )

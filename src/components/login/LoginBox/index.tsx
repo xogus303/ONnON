@@ -6,7 +6,9 @@ import styleGuide from '../../../constants/styleGuide'
 
 export default function(props){
     
-    const { id, pwd, loginAuth, handleLoginId, handleLoginPwd, Login} = props;
+
+
+    const { ENTER_SIGNIN, ENTER_SIGNIN_REF, id, pwd, loginAuth, handleLoginId, handleLoginPwd, signIn} = props;
 
     useEffect(()=>{
         
@@ -15,7 +17,7 @@ export default function(props){
     return (
         <div className="LoginBox">
             <LoginLogo />
-            <div className="LoginInputArea">
+            <div className="LoginInputArea"  onKeyPress={ENTER_SIGNIN}>
                 <input
                     type="text"
                     className="LoginId LoginInput"
@@ -36,7 +38,7 @@ export default function(props){
                 />
                 <button
                     className="LoginSubmit"
-                    onClick={Login}
+                    onClick={signIn}
                 >
                     <BsBoxArrowInRight size={24} color={loginAuth? styleGuide.primary : '#aaa'} />
                 </button>

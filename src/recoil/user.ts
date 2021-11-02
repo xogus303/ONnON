@@ -9,14 +9,18 @@ const { persistAtom } = recoilPersist({
 export interface UserType {
     id: string;
     pwd: string;
+    MEMBER: number;
+    NICK: string;
 }
 
 // Atom
 export const userState = atom<UserType>({
     key: 'userState',
     default: {
-        id: 'xogus303',
-        pwd: '12345a',
+        id: '',
+        pwd: '',
+        MEMBER: 0,
+        NICK: '',
     },
     effects_UNSTABLE: [persistAtom]
 });

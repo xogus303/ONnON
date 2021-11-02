@@ -9,6 +9,13 @@ export default (props) => {
 
     const { TogglePage, registId, registPwd, registAuth, registPwdCheck, handleRegistId, handleRegistPwd, handleRegistPwdCheck, _RegistMember, captcha, handleCaptcha, RID, RPWD, RPWDCHECK, CAPTCHA } = props;
 
+
+    useEffect(()=>{
+
+        loadCaptchaEnginge(6, 'black', 'white');
+
+    }, [])
+
     return (
         <div className="RegistForm">
             <div className="RegistInputArea">

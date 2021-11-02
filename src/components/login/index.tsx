@@ -4,12 +4,16 @@ import { useCookies } from 'react-cookie';
 // recoil
 import { useRecoilState } from 'recoil';
 import { loginState, LoginType } from '../../recoil/login'
+import { userState, UserType } from '../../recoil/user'
+import { ModalType, modalState } from '../../recoil/modal'
 // component
 import LoginBox from './LoginBox'
 import LoginMenu from './LoginMenu'
 import RegistMember from './RegistMember'
 // css
 import './styles.scss';
+
+import api from '../../pages/api'
 
 import { loadCaptchaEnginge, LoadCanvasTemplate, LoadCanvasTemplateNoReload, validateCaptcha } from 'react-simple-captcha';
 
@@ -18,7 +22,9 @@ const emailRegex = /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@((
 
 const Login:React.FC = () => {
 
+    const [ModalState, setModalState] = useRecoilState<ModalType>(modalState)
     const [LoginRecoil, setLoginRecoil] = useRecoilState<LoginType>(loginState)
+    const [UserRecoil, setUserRecoil] = useRecoilState<UserType>(userState)
 
     
     const [cookies, setCookie, removeCookie] = useCookies(['saveId']);
@@ -59,31 +65,14 @@ const Login:React.FC = () => {
     }
     const LoginAuthCheck = (id, pwd) => {
         if (emailRegex.test(id) && pwd.length > 5){
-            console.log('true', );
             setLoginAuth(true)
         } else {
-            console.log('false', );
             setLoginAuth(false)
         }
     }
 
     const handelSaveId = () => {
         setSaveMode(!saveMode)
-    }
-
-    const Login = () => {
-        if (loginAuth){
-            if (saveMode){
-                let tomorrow = new Date()
-                tomorrow.setDate(new Date().getDate() + 1)
-                setCookie('saveId', id, {expires: tomorrow})
-    
-            } else {
-                removeCookie('saveId')
-            }
-        } else {
-            alert('로그인 형식 불충분')
-        }
     }
 
     const TogglePage = (string) => {
@@ -115,31 +104,93 @@ const Login:React.FC = () => {
             setRegistAuth(false)
         }
     }
-    const _RegistMember = () => {
+    const _RegistMember = async () => {
+
         const checkNumber = registPwd.search(/[0-9]/g);
         const checkEnglish = registPwd.search(/[a-z]/gi);
 
         if (registId == ''){
-            alert('생성할 계정을 입력해 주세요.')
-            RID.current?.focus()
+            setModalState({ ...ModalState, show: true, title: '계정생성', text: '생성할 계정을 입력해 주세요.', okCallback: () => RID.current?.focus()})
             return;
         } else if (!emailRegex.test(registId)){
-            alert('계정형식이 올바르지 않습니다. 정확한 이메일 형식을 입력해 주세요.')
-            RID.current?.focus()
+            setModalState({ ...ModalState, show: true, title: '계정생성', text: '계정형식이 올바르지 않습니다. 정확한 이메일 형식을 입력해 주세요.', okCallback: () => RID.current?.focus()})
             return;
         } else if (registPwd !== registPwdCheck){
-            alert('비밀번호가 동일하지 않습니다.')
-            RPWDCHECK.current?.focus()
+            setModalState({ ...ModalState, show: true, title: '계정생성', text: '비밀번호가 동일하지 않습니다.', okCallback: () => RPWDCHECK.current?.focus()})
             return;
         } else if (checkNumber < 0 || checkEnglish < 0){
-            alert('비밀번호는 숫자와 영문자를 혼합하여 6~15자리로 입력해 주세요.')
-            RPWD.current?.focus()
+            setModalState({ ...ModalState, show: true, title: '계정생성', text: '비밀번호는 숫자와 영문자를 혼합하여 6~15자리로 입력해 주세요.', okCallback: () => RPWD.current?.focus()})
             return;
         } else if (!validateCaptcha(captcha)){
-            alert('올바른 보안문자를 입력해 주세요.')
-            CAPTCHA.current?.focus()
+            setModalState({ ...ModalState, show: true, title: '계정생성', text: '올바른 보안문자를 입력해 주세요.', okCallback: () => CAPTCHA.current?.focus()})
+            return;
         } else {
-            alert('가입 가능')
+            try {
+                const {data} = await api.SignUp({
+                    id: registId,
+                    pwd: registPwd
+                })
+                console.log('api.SignUp_data', data);
+                if (data.result == 'SUCCESS'){
+                    TogglePage('login')
+                    setId('')
+                    setPwd('')
+                    setRegistId('')
+                    setRegistPwd('')
+                    setRegistPwdCheck('')
+                    setRegistAuth(false)
+                    setCaptcha('')
+                    setLoginAuth(false)
+                    setSaveMode(false)
+                    setModalState({ ...ModalState, show: true, title: '', text: data.message, })
+                } else if (data.result == 'EXSIST') {
+                    RID.current?.focus()
+                    setModalState({ ...ModalState, show: true, title: '', text: data.message, })
+                } else {
+                    RID.current?.focus()
+                }
+            } catch (err){
+                console.log('err', err);
+            }
+        }
+    }
+
+    const ENTER_SIGNIN = (e) => {
+        if (e.key == 'Enter'){
+            signIn()
+        }
+    }
+
+    const signIn = async() => {
+        console.log('id', id);
+        console.log('pwd', pwd);
+        console.log('loginAuth', loginAuth);
+        // 아이디, 비밀번호 형식체크 완료
+        if (loginAuth){
+
+            // 아이디 저장
+            if (saveMode){
+                let tomorrow = new Date()
+                tomorrow.setDate(new Date().getDate() + 1)
+                setCookie('saveId', id, {expires: tomorrow})
+    
+            } else {
+                removeCookie('saveId')
+            }
+
+            const {data} = await api.SignIn({id, pwd})
+            console.log('SignIn_data', data);
+            setUserRecoil(() => {
+                return {
+                    ...UserRecoil,
+                    MEMBER: data.result.seq,
+                    NICK: data.result.nick,
+                }
+            })
+            CloseLogin()
+
+        } else {
+            setModalState({ ...ModalState, show: true, title: '로그인', text: '올바른 아이디 형식 또는 6자리 이상 비밀번호를 입력해 주세요.' })
         }
     }
 
@@ -148,8 +199,6 @@ const Login:React.FC = () => {
             setId(cookies.saveId)
             setSaveMode(true)
         }
-
-        loadCaptchaEnginge(6, 'black', 'white');
     }, [LoginRecoil.show, LoginRecoil.mode])
 
     const ID = useRef<HTMLInputElement>()
@@ -168,12 +217,13 @@ const Login:React.FC = () => {
                     {LoginRecoil.mode == 'login' ? (
                         <>
                         <LoginBox
+                            ENTER_SIGNIN={ENTER_SIGNIN}
                             id={id}
                             pwd={pwd}
                             loginAuth={loginAuth}
                             handleLoginId={handleLoginId}
                             handleLoginPwd={handleLoginPwd}
-                            Login={Login}
+                            signIn={signIn}
                         />
                         <LoginMenu
                             TogglePage={TogglePage}

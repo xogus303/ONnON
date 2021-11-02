@@ -19,15 +19,6 @@ function Main ({ match, location, history }: MainProps) {
     const [user, setUser] = useRecoilState<UserType>(userState)
     const setUserState = useSetRecoilState<UserType>(userState)
 
-    const selectUser = () => {
-        setUserState((oldUser) => {
-            return {
-                id: '555',
-                pwd: oldUser.pwd+'333'
-            }
-        })
-    }
-
 
     return (
         <div className='Main'>

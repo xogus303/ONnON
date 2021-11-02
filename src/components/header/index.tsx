@@ -1,25 +1,29 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { IoPlaySkipBack, IoPlay, IoPlaySkipForward, } from 'react-icons/io5'
 import { AiOutlineMenuUnfold } from 'react-icons/ai'
 import { IoShuffleSharp, IoInfiniteOutline, IoReloadOutline, IoArrowUpCircleOutline, IoPersonCircleOutline } from 'react-icons/io5'
-import history from 'history/browser';
+import { useHistory } from 'react-router-dom'
 import './header.scss';
 //Utils
 import utils from '../../constants/utils'
 // recoil
 import { useRecoilState } from 'recoil';
 import { loginState, LoginType } from '../../recoil/login'
+import { userState, UserType } from '../../recoil/user'
 
-type PROPS = {
-    MEMBER_SEQ: number,
-}
+// components
+import HeaderMenu from './HeaderMenu';
 
-const Header:React.FC<PROPS> = ({MEMBER_SEQ}) => {
+const Header:React.FC = (props) => {
+
+    const history = useHistory()
 
     const [LoginRecoil, setLoginRecoil] = useRecoilState<LoginType>(loginState)
+    const [UserRecoil, setUserRecoil] = useRecoilState<UserType>(userState)
 
-    const LoginCheck = () => {
-        if (LoginRecoil.MEMBER == 0){
+    const LoginCheck = (type) => {
+        console.log('LoginRecoil.MEMBER', UserRecoil.MEMBER);
+        if (UserRecoil.MEMBER == 0){
             setLoginRecoil(() => {
                 return {
                     ...LoginRecoil,
@@ -28,8 +32,24 @@ const Header:React.FC<PROPS> = ({MEMBER_SEQ}) => {
             })
             return false
         } else {
-            return true
+            if (type == 'upload'){
+                // 업로드 페이지 이동
+                history.push('upload')
+            } else {
+
+            }
         }
+    }
+
+    const Logout = () => {
+        setUserRecoil(()=>{
+            return {
+                id: '',
+                pwd: '',
+                MEMBER: 0,
+                NICK: '',
+            }
+        })
     }
 
     const RouteHeader = () => {
@@ -82,20 +102,12 @@ const Header:React.FC<PROPS> = ({MEMBER_SEQ}) => {
                         </button>
                     </div>
                 </div>
-                <div className="MenuArea">
-                    <button
-                        className='MenuIcon HeaerIcon'
-                        onClick={LoginCheck}
-                    >
-                        <IoArrowUpCircleOutline  size={20} color={'black'}/>
-                    </button>
-                    <button
-                        className='MenuIcon HeaerIcon'
-                        onClick={LoginCheck}
-                    >
-                        <IoPersonCircleOutline  size={20} color={'black'}/>
-                    </button>
-                </div>
+                <HeaderMenu
+                    LoginCheck={LoginCheck}
+                    UserNick={UserRecoil.NICK}
+                    Member={UserRecoil.MEMBER}
+                    Logout={Logout}
+                />
             </div>
         )
     } else {

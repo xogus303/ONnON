@@ -10,7 +10,6 @@ const { persistAtom } = recoilPersist({
 export interface LoginType {
     show: boolean;
     mode: string;
-    MEMBER: number;
 }
 
 // Atom
@@ -19,7 +18,6 @@ export const loginState = atom<LoginType>({
     default: {
         show: false,
         mode: 'login',
-        MEMBER: 0,
         
     },
     effects_UNSTABLE: [persistAtom]

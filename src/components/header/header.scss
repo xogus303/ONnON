@@ -42,10 +42,46 @@ $blue: blue;
     .HeaerIcon:hover {
         transform: scale(1.1);
     }
+
 .MenuArea {
     display: flex;
+    position: relative;
     padding-left: 20px;
 }
 .MenuArea .MenuIcon {
-    
+    height: 60px;
+}
+
+// HeaderMenu
+.MemberTool {
+    position: absolute;
+    top: 80%;
+    right: -10px;
+    padding: 20px 10px;
+    min-width: 150px;
+    border-radius: 6px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    transition: .4s;
+    cursor: default;
+}
+
+.NickArea {
+    font-size: 0.8rem;
+    font-weight: bold;
+}
+
+.GrayLine {
+    margin: 10px 0;
+    height: 1px;
+    border: 1px solid #eee;
+}
+
+.LogoutArea {
+    color: #777;
+    font-size: .9rem;
+}
+
+.LogoutArea:hover {
+    text-decoration: underline;
 }
