@@ -12,7 +12,11 @@ export default () => {
                 <div className="UploadArea">
                     <UploadInput />
                     <div className="SubmitArea">
-                        <input type="text" id="SubmitInput"/>
+                        <input
+                            type="text"
+                            id="SubmitInput"
+                            placeholder="제목을 입력해 주세요."
+                        />
                         <button className="SubmitBtn">등록</button>
                     </div>
                 </div>
